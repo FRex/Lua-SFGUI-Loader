@@ -216,6 +216,7 @@ namespace edy{
 		}
 		void LuaTable::remove(int index)
 		{
+			if(index<0) index=getSize()-index+1;
 			remove(core::varToString(index));
 		}
 		void LuaTable::remove(const std::string& key)
