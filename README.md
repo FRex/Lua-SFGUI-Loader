@@ -9,4 +9,4 @@ SFGUI - zlib license http://sfgui.sfml-dev.de/ <br />
 Lua - Mit license http://www.lua.org/ <br />
 PhysicsFS - zlib license http://icculus.org/physfs/ <br />
  <br />
-The PhysicsFS dependancy can be removed easily, it only loads the images and lua code through it's streams.
+The PhysicsFS dependancy can be removed easily by commenting out #define in loader's header, it only loads the images and lua code through it's streams.
