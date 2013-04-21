@@ -1,4 +1,3 @@
-
 #include "InterfaceLoader.h"
 #include "LuaTable.h"
 #ifndef EE_NOPHYS_IN_LOADER
@@ -31,7 +30,7 @@ int main(int argc,char * argv[])
 
 	edy::gui::InterfaceLoader loader;//create instance of the loader
 	loader.setCreationCallback(std::bind(fun2,std::placeholders::_2));//bind creation callback
-	loader.load("edy/test.lua");//load from that file(internally open via physfs)
+	loader.load("test.lua");//load from that file(internally open via physfs)
 	auto& it=loader.getWindows();//get vector of resuting windows
 	for(unsigned i=0;i<it.size();++i) desk.Add(it[i]);//add them to desktop
 
