@@ -11,3 +11,5 @@ PhysicsFS - zlib license http://icculus.org/physfs/ <br />
  <br />
  Physiscs dependancy is not necessary, if you don't comment the #define in InterfaceLoader.h you'll not be dependand on it.
  You'll also not need Phys*.h and .cpp files if you don't use Physics.
+ Also, you need to recompile SFGUI with a nonbreaking change that adds std::bind to Signals, as explained here:<br />
+ http://en.sfml-dev.org/forums/index.php?topic=6112.msg75955#msg75955
