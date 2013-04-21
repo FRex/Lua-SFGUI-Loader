@@ -9,4 +9,5 @@ SFGUI - zlib license http://sfgui.sfml-dev.de/ <br />
 Lua - Mit license http://www.lua.org/ <br />
 PhysicsFS - zlib license http://icculus.org/physfs/ <br />
  <br />
-The PhysicsFS dependancy can be removed easily by commenting out #define in loader's header, it only loads the images and lua code through it's streams.
+ Physiscs dependancy is not necessary, if you don't comment the #define in InterfaceLoader.h you'll not be dependand on it.
+ You'll also not need Phys*.h and .cpp files if you don't use Physics.
