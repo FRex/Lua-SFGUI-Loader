@@ -1,4 +1,5 @@
 #pragma once
+#define EE_NOPHYS_IN_LOADER // comment this line out to make text and images load via physics
 #include <vector>
 #include <map>
 #include <string>
@@ -29,7 +30,7 @@ namespace edy{
 			typedef sfg::WeakPtr<sfg::Object>		WeakPtr;
 			typedef std::function<void(WeakPtr,const std::string& message)> CallFun;
 			typedef std::function<void(sfg::Widget::Ptr,const script::LuaTable&)> CreationFun;
-			InterfaceLoader();
+													InterfaceLoader();
 			bool									load(const char * filename,bool clearlast=true);
 			void									clear();
 			const std::vector<sfg::Window::Ptr>&	getWindows()const{return m_Windows;}

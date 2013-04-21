@@ -1,10 +1,14 @@
 #include "InterfaceLoader.h"
 #include <SFGUI/SFGUI.hpp>
+#ifndef EE_NOPHYS_IN_LOADER
 #include "PhysAsciiFile.h"
+#include "PhysInputStream.h"
+#else
+#include <Lua/lua.hpp>
+#endif
 #include "LuaTable.h"
 //#include <edy/core/binaryflags.h>
 #include "binaryflags.h"
-#include "PhysInputStream.h"
 #define	EE_CALLMEMBER(instance,funptr) ((instance).*(funptr))
 namespace {
 	class AttachmentOptions
@@ -87,9 +91,24 @@ namespace edy{
 			if(clearlast) clear();
 			script::LuaTable table;
 			{
+#ifndef EE_NOPHYS_IN_LOADER
 				io::PhysAsciiFile file(filename);
 				if(!file.loaded()) return false;
 				table.loadFromString(file.getContents());
+#else
+				lua_State * L=luaL_newstate();
+				if(luaL_dofile(L,filename))//dofile returns true on error
+				{
+					lua_close(L);
+					return false;
+				}
+				else
+				{
+					lua_pushglobaltable(L);
+					table.loadFromState(L,-1);
+					lua_close(L);
+				}
+#endif
 			}
 			for(auto it=table.begin();it!=table.end();++it)
 			{
@@ -178,7 +197,7 @@ namespace edy{
 		void InterfaceLoader::addSpinner(const script::LuaTable& desc)
 		{
 			sfg::Spinner::Ptr spin=sfg::Spinner::Create();
-			
+
 			if(desc("start").asBoolean()) spin->Start();
 			attachWithOpts(getLastTable(),spin,AttachmentOptions(desc));
 			addCallbacks(spin,desc);
@@ -359,7 +378,7 @@ namespace edy{
 
 			attachWithOpts(getLastTable(),radio,AttachmentOptions(desc));
 			addCallbacks(radio,desc);
-			
+
 			if(desc("OnToggle").tryString(str))
 				radio->GetSignal(sfg::RadioButton::OnToggle).Connect(std::bind(&InterfaceLoader::call,this,radio,str));
 		}
@@ -387,7 +406,11 @@ namespace edy{
 			auto find=m_Images.find(name);
 			if(find==m_Images.end())
 			{
+#ifndef EE_NOPHYS_IN_LOADER
 				m_Images[name].loadFromStream(io::PhysInputStream(name.c_str()));
+#else
+				m_Images[name].loadFromFile(name);
+#endif
 				find=m_Images.find(name);
 			}
 			return sfg::Image::Create(find->second);
