@@ -2,7 +2,7 @@ Lua-SFGUI-Loader
 ================
 Easy to use loader of Lua files that creates a table filled with desired wigets.
 
-This code is under zlib license, see http://en.wikipedia.org/wiki/Zlib_License#Text for full text. <br />
+This code is under zlib license, see http://opensource.org/licenses/Zlib for full text. <br />
 It depends on: <br />
 SFML - zlib license http://www.sfml-dev.org/  <br />
 SFGUI - zlib license http://sfgui.sfml-dev.de/ <br />
